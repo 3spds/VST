@@ -1,7 +1,7 @@
 /*
-ExpDist.h - waveshape with an exponential function.
-Written by Joe Mariglio, 11/22/14
-"drive" is the pre-shaper gain.
+EigenTest.h - waveshape with an exponential function.
+Will eventually include some nifty linear algebra stuff, courtesy Eigen...
+Written by Joe Mariglio, 11/25/14
 */
 
 class EigenTest
