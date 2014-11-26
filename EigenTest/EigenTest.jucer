@@ -27,9 +27,9 @@
     <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/SDKs/vstsdk2.4" vst3Folder="~/SDKs/VST3 SDK">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
-                       targetName="EigenTest" headerPath="/home/joe/SDKs/eigen/Eigen"/>
+                       targetName="EigenTest" headerPath="/home/joe/SDKs/eigen/"/>
         <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="2"
-                       targetName="EigenTest"/>
+                       targetName="EigenTest" headerPath="/home/joe/SDKs/eigen/"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../JUCE/modules"/>

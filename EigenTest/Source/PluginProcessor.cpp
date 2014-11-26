@@ -179,10 +179,11 @@ void EigenTestAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
     {}
     else
     {
-        float* leftData = buffer.getWritePointer(0);
-        float* rightData = buffer.getWritePointer(1);
+        mDist.AudioSVD(buffer, 0);
+        /*
         for(long i=0; i<buffer.getNumSamples();i++)
             mDist.ClockProcess(&leftData[i], &rightData[i]);
+            */
     }
 }
 
