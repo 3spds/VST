@@ -31,17 +31,18 @@ void EigenTest::SoftClip(float* input, float* output)
 void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel)
 {
     int length = buffer.getNumSamples();
+    int m = (length/Fraction)-Order;
     float* pointer = buffer.getWritePointer(channel);
     VectorXd avg = VectorXd::Zero(Order);
 
     //now that we know the length of the buffer, we can resize A, U, S, & V
-    A.resize((length/Fraction)-Order, Order);
-    U.resize(length-1, length-1);
-    S.resize(length-1, 1);
-    V.resize(length-1, length-1);
+    A.resize(m, Order);
+    U.resize(length, length);
+    S.resize(length, 1);
+    V.resize(length, length);
 
     //fill A with input vector
-    for(int i=0;i<(length/Fraction)-Order;i++)
+    for(int i=0;i<m;i++)
     {
         for(int j=0;j<Order;j++)
         {
@@ -51,7 +52,7 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel)
         }
         for(int j=0;j<Order;j++)
         {
-            A.col(j) -= (VectorXd::Ones((length/Fraction)-Order) * avg(j) );
+            A.col(j) -= (VectorXd::Ones(m) * avg(j) );
         }
     }
 
@@ -59,18 +60,21 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel)
     Eigen::JacobiSVD<Eigen::MatrixXd> svd(A, ComputeThinU | ComputeThinV);
 
     S = svd.singularValues();
+    V = svd.matrixV();
+    V.transposeInPlace();
     U = svd.matrixU();
-    for(int i=0;i<(length/Fraction)-Order;i++)
+    for(int i=0;i<Order;i++)
     {
-       // pointer[i] = (V * S).array()(i);
+       if(S(i)<1){S(i) = 0;};
     }
 
     //print for testing
 
 //    cout<<length/2<<endl;
 //    cout<<A.block(0, 0,(length/2)-Order,1)<<endl;
-    cout<<(V.inverse() * S).array()<<endl;
-    cout<<endl;
+    cout<<S<<endl;
+//    cout<<(U * S * V).array()<<endl;
+//    cout<<endl;
 //    cout<<endl;
 
 }
