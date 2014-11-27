@@ -37,7 +37,7 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel)
     //now that we know the length of the buffer, we can resize A, U, S, & V
     A.resize((length/Fraction)-Order, Order);
     U.resize(length-1, length-1);
-    S.resize(length-1, length-1);
+    S.resize(length-1, 1);
     V.resize(length-1, length-1);
 
     //fill A with input vector
@@ -57,12 +57,22 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel)
 
     //calculate svd:
     Eigen::JacobiSVD<Eigen::MatrixXd> svd(A, ComputeThinU | ComputeThinV);
+
+    S = svd.singularValues();
+    U = svd.matrixU();
+    for(int i=0;i<(length/Fraction)-Order;i++)
+    {
+       // pointer[i] = (V * S).array()(i);
+    }
+
     //print for testing
 
 //    cout<<length/2<<endl;
 //    cout<<A.block(0, 0,(length/2)-Order,1)<<endl;
-//    cout<<A<<endl;
+    cout<<(V.inverse() * S).array()<<endl;
+    cout<<endl;
 //    cout<<endl;
+
 }
 
 void EigenTest::ClockProcess(float* LeftSample, float* RightSample)
