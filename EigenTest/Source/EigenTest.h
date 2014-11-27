@@ -9,7 +9,7 @@ Written by Joe Mariglio, 11/25/14
 #include "stdio.h"
 
 #define Order 10
-#define Fraction 16
+#define Fraction 8
 
 class EigenTest
 {
