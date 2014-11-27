@@ -35,26 +35,33 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel)
     VectorXd avg = VectorXd::Zero(Order);
 
     //now that we know the length of the buffer, we can resize A, U, S, & V
-    A.resize((length/2)-Order, Order);
+    A.resize((length/Fraction)-Order, Order);
     U.resize(length-1, length-1);
     S.resize(length-1, length-1);
     V.resize(length-1, length-1);
 
     //fill A with input vector
-    for(int i=0;i<(length/2)-Order;i++)
+    for(int i=0;i<(length/Fraction)-Order;i++)
     {
         for(int j=0;j<Order;j++)
         {
             A(i, j) = pointer[i+j];
             //update average
-            avg(j) += (pointer[i+j]/(length/2));
+            avg(j) += (pointer[i+j]/(length/Fraction));
+        }
+        for(int j=0;j<Order;j++)
+        {
+            A.col(j) -= (VectorXd::Ones((length/Fraction)-Order) * avg(j) );
         }
     }
+
     //calculate svd:
     Eigen::JacobiSVD<Eigen::MatrixXd> svd(A, ComputeThinU | ComputeThinV);
     //print for testing
+
 //    cout<<length/2<<endl;
-    cout<<A.block(0, 0,(length/2)-Order,1)<<endl;
+//    cout<<A.block(0, 0,(length/2)-Order,1)<<endl;
+//    cout<<A<<endl;
 //    cout<<endl;
 }
 
