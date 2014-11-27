@@ -8,8 +8,8 @@ Written by Joe Mariglio, 11/25/14
 #include "math.h"
 #include "stdio.h"
 
-#define Order 8
-#define Fraction 4
+#define Order 2
+#define Fraction 2
 
 class EigenTest
 {

@@ -65,18 +65,25 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel)
     U = svd.matrixU();
     for(int i=0;i<Order;i++)
     {
-       if(S(i)<1){S(i) = 0;};
+       if(fabs(S(i))<0.0000001){S(i) = 0;};
     }
 
     //print for testing
-
+    A = U * S.asDiagonal() * V;
 //    cout<<length/2<<endl;
 //    cout<<A.block(0, 0,(length/2)-Order,1)<<endl;
-    cout<<S<<endl;
+//    cout<<A.col(0)<<endl;
 //    cout<<(U * S * V).array()<<endl;
 //    cout<<endl;
 //    cout<<endl;
-
+    for(int i=0;i<length/Order;i++)
+    {
+        for(int j=0;j<Order;j++)
+        {
+            pointer[(i*Order)+j] =  A(i%m,j) + avg(j);
+        }
+//        pointer[i] = (A.col(0)).array()(i%m);
+    }
 }
 
 void EigenTest::ClockProcess(float* LeftSample, float* RightSample)

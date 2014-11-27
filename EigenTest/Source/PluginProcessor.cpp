@@ -180,6 +180,7 @@ void EigenTestAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
     else
     {
         mDist.AudioSVD(buffer, 0);
+        //mDist.AudioSVD(buffer, 1);
         /*
         for(long i=0; i<buffer.getNumSamples();i++)
             mDist.ClockProcess(&leftData[i], &rightData[i]);
