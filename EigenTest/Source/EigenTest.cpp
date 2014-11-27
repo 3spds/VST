@@ -28,7 +28,7 @@ void EigenTest::SoftClip(float* input, float* output)
     *output = tanh(*input);
 }
 
-void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel)
+void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel, int offset)
 {
     int length = buffer.getNumSamples();
     int m = (length/Fraction)-Order;
@@ -37,23 +37,21 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel)
 
     //now that we know the length of the buffer, we can resize A, U, S, & V
     A.resize(m, Order);
-    U.resize(length, length);
-    S.resize(length, 1);
-    V.resize(length, length);
+    U.resize(m, Order);
+    S.resize(Order, 1);
+    V.resize(Order, length);
 
     //fill A with input vector
-    for(int i=0;i<m;i++)
+
+    for(int j=0;j<Order;j++)
     {
-        for(int j=0;j<Order;j++)
+        for(int i=0;i<m;i++)
         {
-            A(i, j) = pointer[i+j];
+            A(i, j) = pointer[i+j+offset];
             //update average
-            avg(j) += (pointer[i+j]/(length/Fraction));
+            avg(j) += (pointer[i+j+offset]/(double)m);
         }
-        for(int j=0;j<Order;j++)
-        {
-            A.col(j) -= (VectorXd::Ones(m) * avg(j) );
-        }
+        A.col(j) -= (VectorXd::Ones(m) * avg(j) );
     }
 
     //calculate svd:
@@ -65,7 +63,7 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel)
     U = svd.matrixU();
     for(int i=0;i<Order;i++)
     {
-       if(fabs(S(i))<0.0000001){S(i) = 0;};
+       if(fabs(S(i))<m_drive){S(i) = 0;};
     }
 
     //print for testing
@@ -76,31 +74,25 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel)
 //    cout<<(U * S * V).array()<<endl;
 //    cout<<endl;
 //    cout<<endl;
-    for(int i=0;i<length/Order;i++)
+
+    A.rowwise() += avg.transpose();
+
+    //copy the first (length/Order) - Order samples
+    for(int i=0;i<m;i++)
     {
-        for(int j=0;j<Order;j++)
-        {
-            pointer[(i*Order)+j] =  A(i%m,j) + avg(j);
-        }
-//        pointer[i] = (A.col(0)).array()(i%m);
+        pointer[i+offset] = (A.col(0)).array()(i);
+//        cout<<i+offset<<endl;
+    }
+    //then copy the last Order samples
+    for(int i=0;i<Order;i++)
+    {
+        pointer[m+i+offset] = A.array()(m-Order+i, Order-1);
+//        cout<<m+i+offset<<endl;
     }
 }
 
 void EigenTest::ClockProcess(float* LeftSample, float* RightSample)
 {
-    float left = *LeftSample;
-    float right = *RightSample;
-    float lr = 0.0f;
-    left = gain*(exp(m_drive*left)-1.0f);
-    right = gain*(exp(m_drive*right)-1.0f);
-    lr = (left+right)*0.5;
-    lr = sqrt(pow(lr, 2));
-    Average(&lr, &rms, 0.3);
-    left = left*(1.0f/(rms+0.2));
-    right = right*(1.0f/(rms+0.2));
-    SoftClip(&left, &left);
-    SoftClip(&right, &right);
-    *LeftSample=left;
-    *RightSample=right;
+
 }
 

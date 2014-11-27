@@ -179,7 +179,10 @@ void EigenTestAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
     {}
     else
     {
-        mDist.AudioSVD(buffer, 0);
+        for(int i=0;i<Fraction;i++)
+        {
+            mDist.AudioSVD(buffer, 0, i*(int)(buffer.getNumSamples()/Fraction));
+        }
         //mDist.AudioSVD(buffer, 1);
         /*
         for(long i=0; i<buffer.getNumSamples();i++)

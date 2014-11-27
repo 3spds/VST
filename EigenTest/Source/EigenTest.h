@@ -8,8 +8,8 @@ Written by Joe Mariglio, 11/25/14
 #include "math.h"
 #include "stdio.h"
 
-#define Order 2
-#define Fraction 2
+#define Order 8
+#define Fraction 16
 
 class EigenTest
 {
@@ -25,7 +25,7 @@ float GetDrive(void){return m_drive;};
 void ClockProcess(float* LeftSample, float* RightSample);
 void Average(float* input, float* level, float dec);
 void SoftClip(float* input, float* output);
-void AudioSVD(AudioSampleBuffer& buffer, int channel);
+void AudioSVD(AudioSampleBuffer& buffer, int channel, int offset);
 private:
 float m_drive, gain, rms;
 Eigen::MatrixXd A, U, S, V;
