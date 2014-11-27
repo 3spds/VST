@@ -1,9 +1,13 @@
+/*
+EigenTest.c - waveshape with an exponential function.
+Will eventually include some nifty linear algebra stuff, courtesy Eigen...
+Written by Joe Mariglio, 11/25/14
+*/
+
 #include "EigenTest.h"
-#include "math.h"
-#include "Eigen/Dense"
-#include "stdio.h"
 
 using namespace std;
+using namespace Eigen;
 
 EigenTest::EigenTest(){SetDrive(1.0f);}
 EigenTest::~EigenTest(){}
@@ -28,23 +32,30 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel)
 {
     int length = buffer.getNumSamples();
     float* pointer = buffer.getWritePointer(channel);
+    VectorXd avg = VectorXd::Zero(Order);
 
     //now that we know the length of the buffer, we can resize A, U, S, & V
-    A.resize(1, length-1);
+    A.resize((length/2)-Order, Order);
     U.resize(length-1, length-1);
     S.resize(length-1, length-1);
     V.resize(length-1, length-1);
 
     //fill A with input vector
-    for(int i=0;i<length-1;i++)
+    for(int i=0;i<(length/2)-Order;i++)
     {
-        A(i) = pointer[i];
+        for(int j=0;j<Order;j++)
+        {
+            A(i, j) = pointer[i+j];
+            //update average
+            avg(j) += (pointer[i+j]/(length/2));
+        }
     }
-
-    //
-
+    //calculate svd:
+    Eigen::JacobiSVD<Eigen::MatrixXd> svd(A, ComputeThinU | ComputeThinV);
     //print for testing
-    cout<<A<<endl;
+//    cout<<length/2<<endl;
+    cout<<A.block(0, 0,(length/2)-Order,1)<<endl;
+//    cout<<endl;
 }
 
 void EigenTest::ClockProcess(float* LeftSample, float* RightSample)

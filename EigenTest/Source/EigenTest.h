@@ -5,6 +5,10 @@ Written by Joe Mariglio, 11/25/14
 */
 #include "Eigen/Dense"
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "math.h"
+#include "stdio.h"
+
+#define Order 8
 
 class EigenTest
 {
