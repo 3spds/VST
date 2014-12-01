@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="SVDComp" />
+		<Option makefile_is_custom="1" />
+		<Option execution_dir="../../Builds/Linux" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<MakeCommands>
+			<Build command="$make -f $makefile" />
+			<CompileFile command="$make -f $makefile $file" />
+			<Clean command="$make -f $makefile clean" />
+			<DistClean command="$make -f $makefile distclean$target" />
+			<AskRebuildNeeded command="$make -q -f $makefile" />
+			<SilentBuild command="$make -f $makefile &gt; $(CMD_NULL)" />
+		</MakeCommands>
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/ExpDist" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<ExtraCommands>
+					<Add after="kdesudo cp ./build/*.so /usr/lib/vst/;" />
+					<Add after="konsole -e ardour3 --debug" />
+					<Mode after="always" />
+				</ExtraCommands>
+				<MakeCommands>
+					<Build command="$make -f $makefile" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile clean" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile" />
+					<SilentBuild command="$make -f $makefile &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/ExpDist" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/EigenTest_8967493f.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/PluginEditor_94d4fb09.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/PluginProcessor_a059e380.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_PluginUtilities_2dc8cd86.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_VST3_Wrapper_ffc4600d.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_VST_Wrapper_dcd38e8f.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_audio_basics_b230a8bc.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_audio_devices_6e54be7a.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_audio_formats_9cd6081a.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_audio_processors_563f0674.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_core_28ba299e.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_cryptography_b3b5abf8.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_data_structures_2a02f2da.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_events_a3c29712.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_graphics_13419d76.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_gui_basics_332d59f2.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_gui_extra_6ca15ffa.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_opengl_640abf3e.d" />
+		<Unit filename="../../Builds/Linux/build/intermediate/Debug/juce_video_6ebc1d1a.d" />
+		<Unit filename="../../JuceLibraryCode/AppConfig.h" />
+		<Unit filename="../../JuceLibraryCode/JuceHeader.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_audio_basics/juce_audio_basics.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_audio_devices/juce_audio_devices.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_audio_formats/juce_audio_formats.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_audio_plugin_client/juce_audio_plugin_client.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_audio_processors/juce_audio_processors.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_core/juce_core.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_cryptography/juce_cryptography.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_data_structures/juce_data_structures.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_events/juce_events.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_graphics/juce_graphics.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_gui_basics/juce_gui_basics.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_opengl/juce_opengl.h" />
+		<Unit filename="../../JuceLibraryCode/modules/juce_video/juce_video.h" />
+		<Unit filename="../../Source/PluginEditor.cpp" />
+		<Unit filename="../../Source/PluginEditor.h" />
+		<Unit filename="../../Source/PluginProcessor.cpp" />
+		<Unit filename="../../Source/PluginProcessor.h" />
+		<Unit filename="../../Source/SVDComp.cpp" />
+		<Unit filename="../../Source/SVDComp.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

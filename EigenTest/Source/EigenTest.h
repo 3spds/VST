@@ -1,6 +1,5 @@
 /*
-EigenTest.h - waveshape with an exponential function.
-Will eventually include some nifty linear algebra stuff, courtesy Eigen...
+EigenTest.h - Apply dynamics processing to singular values of transformation matrix.
 Written by Joe Mariglio, 11/25/14
 */
 #include "Eigen/Dense"

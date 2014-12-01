@@ -101,8 +101,8 @@ void EigenTestAudioProcessorEditor::paint (Graphics& g)
 void EigenTestAudioProcessorEditor::resized()
 {
     label->setBounds (0, 0, proportionOfWidth (0.9495f), 28);
-    DriveSld->setBounds (8, 32, proportionOfWidth (0.9500f), proportionOfHeight (0.0500f));
-    BypassBtn->setBounds (8, 64, proportionOfWidth (0.9500f), proportionOfHeight (0.0500f));
+    DriveSld->setBounds (8, 32, proportionOfWidth (0.9495f), proportionOfHeight (0.0504f));
+    BypassBtn->setBounds (8, 64, proportionOfWidth (0.9495f), proportionOfHeight (0.0504f));
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -174,19 +174,19 @@ BEGIN_JUCER_METADATA
                  initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ff808080"/>
   <LABEL name="new label" id="205b2d5d7890e507" memberName="label" virtualName=""
-         explicitFocusOrder="0" pos="0 0 94.947% 28" posRelativeH="5e0c08a0b8108a7c"
+         explicitFocusOrder="0" pos="0 0 94.952% 28" posRelativeH="5e0c08a0b8108a7c"
          textCol="ff000000" edTextCol="ff000000" edBkgCol="0" labelText="singular value decomposition"
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
          fontname="Gravitate Segments BRK" fontsize="27.399999999999998579"
          bold="1" italic="0" justification="33"/>
   <SLIDER name="Drive Slider" id="5e0c08a0b8108a7c" memberName="DriveSld"
-          virtualName="" explicitFocusOrder="0" pos="8 32 94.947% 5.036%"
+          virtualName="" explicitFocusOrder="0" pos="8 32 94.952% 5.036%"
           thumbcol="ffff0000" trackcol="7f000000" textboxtext="ffff0000"
           textboxbkgd="ff000000" textboxhighlight="40ee1111" min="0" max="16"
           int="0.010000000000000000208" style="LinearHorizontal" textBoxPos="TextBoxLeft"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <TEXTBUTTON name="Bypass Button" id="5ae4b77fe351266c" memberName="BypassBtn"
-              virtualName="" explicitFocusOrder="0" pos="8 64 94.947% 5.036%"
+              virtualName="" explicitFocusOrder="0" pos="8 64 94.952% 5.036%"
               bgColOff="ffff0000" bgColOn="ff636363" textCol="ff000000" buttonText="had enough?"
               connectedEdges="1" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
