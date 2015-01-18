@@ -48,8 +48,8 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
     void timerCallback();
-    SVDCompAudioProcessor* getProcessor() const
-        {return static_cast <SVDCompAudioProcessor*>(getAudioProcessor());}
+    AllpasserAudioProcessor* getProcessor() const
+        {return static_cast <AllpasserAudioProcessor*>(getAudioProcessor());}
     //[/UserMethods]
 
     void paint (Graphics& g);

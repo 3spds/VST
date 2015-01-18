@@ -12,6 +12,8 @@
               companyName="3spds" companyWebsite="www.joemariglio.com" companyEmail="joe.mariglio@gmail.com">
   <MAINGROUP id="YQZUtH" name="Allpasser">
     <GROUP id="{E998CB6D-A122-13A9-6A27-71F7E6C1844B}" name="Source">
+      <FILE id="E0ZPlQ" name="soap.cpp" compile="1" resource="0" file="3SPDSP/soap/soap.cpp"/>
+      <FILE id="BqJHeh" name="soap.h" compile="0" resource="0" file="3SPDSP/soap/soap.h"/>
       <FILE id="OGDBIo" name="Allpasser.cpp" compile="1" resource="0" file="Source/Allpasser.cpp"/>
       <FILE id="lRkSDp" name="Allpasser.h" compile="0" resource="0" file="Source/Allpasser.h"/>
       <FILE id="pExEoF" name="PluginEditor.cpp" compile="1" resource="0"
@@ -27,9 +29,9 @@
     <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/SDKs/vstsdk2.4" vst3Folder="~/SDKs/VST3 SDK">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
-                       targetName="SVDComp" headerPath="/home/joe/SDKs/eigen/"/>
+                       targetName="Allpasser" headerPath="/home/joe/SDKs/eigen/; /home/joe/Plugins/3SPDSP/soap/source"/>
         <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="2"
-                       targetName="SVDComp" headerPath="/home/joe/SDKs/eigen/"/>
+                       targetName="Allpasser" headerPath="/home/joe/SDKs/eigen/; /home/joe/Plugins/3SPDSP/soap/source"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../JUCE/modules"/>

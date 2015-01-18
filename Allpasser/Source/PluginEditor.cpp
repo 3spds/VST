@@ -113,13 +113,13 @@ void AllpasserAudioProcessorEditor::resized()
 void AllpasserAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     //[UsersliderValueChanged_Pre]
-    SVDCompAudioProcessor* ourProcessor = getProcessor();
+    AllpasserAudioProcessor* ourProcessor = getProcessor();
     //[/UsersliderValueChanged_Pre]
 
     if (sliderThatWasMoved == DriveSld)
     {
         //[UserSliderCode_DriveSld] -- add your slider handling code here..
-        ourProcessor->setParameter(SVDCompAudioProcessor::Drive, (float)DriveSld->getValue());
+        ourProcessor->setParameter(AllpasserAudioProcessor::Drive, (float)DriveSld->getValue());
         //[/UserSliderCode_DriveSld]
     }
 
@@ -130,13 +130,13 @@ void AllpasserAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMov
 void AllpasserAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
-    SVDCompAudioProcessor* ourProcessor = getProcessor();
+    AllpasserAudioProcessor* ourProcessor = getProcessor();
     //[/UserbuttonClicked_Pre]
 
     if (buttonThatWasClicked == BypassBtn)
     {
         //[UserButtonCode_BypassBtn] -- add your button handler code here..
-        ourProcessor->setParameter(SVDCompAudioProcessor::MasterBypass, (float)BypassBtn->getToggleState());
+        ourProcessor->setParameter(AllpasserAudioProcessor::MasterBypass, (float)BypassBtn->getToggleState());
         //[/UserButtonCode_BypassBtn]
     }
 
@@ -147,13 +147,13 @@ void AllpasserAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
-void SVDCompAudioProcessorEditor::timerCallback()
+void AllpasserAudioProcessorEditor::timerCallback()
 {
-    SVDCompAudioProcessor* ourProcessor = getProcessor();
+    AllpasserAudioProcessor* ourProcessor = getProcessor();
     if(ourProcessor->NeedsUIUpdate())
     {
-        BypassBtn->setToggleState(1.0f==ourProcessor->getParameter(SVDCompAudioProcessor::MasterBypass), dontSendNotification);
-        DriveSld->setValue(ourProcessor->getParameter(SVDCompAudioProcessor::Drive), dontSendNotification);
+        BypassBtn->setToggleState(1.0f==ourProcessor->getParameter(AllpasserAudioProcessor::MasterBypass), dontSendNotification);
+        DriveSld->setValue(ourProcessor->getParameter(AllpasserAudioProcessor::Drive), dontSendNotification);
         ourProcessor->ClearUIUpdateFlag();
     }
 }

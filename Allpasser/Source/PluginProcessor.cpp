@@ -17,7 +17,7 @@ AllpasserAudioProcessor::AllpasserAudioProcessor()
 {
     UserParams[MasterBypass]=0.0f;
     UserParams[Drive]=1.0f;
-    mDist.SetDrive(UserParams[Drive]);
+    mAP.SetDrive(UserParams[Drive]);
     UIUpdateFlag=true;
 }
 
@@ -43,7 +43,7 @@ float AllpasserAudioProcessor::getParameter (int index)
     case MasterBypass:
         return UserParams[MasterBypass];
     case Drive:
-        UserParams[Drive]=mDist.GetDrive();
+        UserParams[Drive]=mAP.GetDrive();
         return UserParams[Drive];
     default: return 0.0f;
     }
@@ -58,7 +58,7 @@ void AllpasserAudioProcessor::setParameter (int index, float newValue)
         break;
     case Drive:
         UserParams[Drive]=newValue;
-        mDist.SetDrive(UserParams[Drive]);
+        mAP.SetDrive(UserParams[Drive]);
         break;
     default: return;
     }
@@ -179,15 +179,17 @@ void AllpasserAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
     {}
     else
     {
-        for(int i=0;i<Fraction;i++)
-        {
-            mDist.AudioSVD(buffer, 0, i*(int)(buffer.getNumSamples()/Fraction));
-        }
-        //mDist.AudioSVD(buffer, 1);
-        /*
+        //for(int i=0;i<Fraction;i++)
+        //{
+        //    mAP.AudioSVD(buffer, 0, i*(int)(buffer.getNumSamples()/Fraction));
+        //}
+
+        //mAP.AudioSVD(buffer, 1);
+
+        float* leftData = (float*)buffer.getWritePointer(0);
+        float* rightData = (float*)buffer.getWritePointer(1);
         for(long i=0; i<buffer.getNumSamples();i++)
-            mDist.ClockProcess(&leftData[i], &rightData[i]);
-            */
+            mAP.ClockProcess(&leftData[i], &rightData[i]);
     }
 }
 

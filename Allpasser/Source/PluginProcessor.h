@@ -72,7 +72,7 @@ public:
     void ClearUIUpdateFlag(){UIUpdateFlag=false;};
 private:
     float UserParams[totalNumParam];
-    Allpasser mDist;
+    Allpasser mAP;
     bool UIUpdateFlag;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AllpasserAudioProcessor)
