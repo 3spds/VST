@@ -18,8 +18,8 @@ Allpasser();
 
 
 //Parameters
-void SetFreq(float freqIn);
-float GetFreq(void){return m_freq;};
+void SetDrive(float drive);
+float GetDrive(void){return m_drive;};
 
 //Use
 void ClockProcess(float* LeftSample, float* RightSample);
@@ -27,7 +27,7 @@ void Average(float* input, float* level, float dec);
 void SoftClip(float* input, float* output);
 
 private:
-float m_freq, gain, rms;
+float m_drive, gain, rms;
 Eigen::MatrixXd A, U, S, V;
 Soap* filter0[ORDER];
 float fb0;

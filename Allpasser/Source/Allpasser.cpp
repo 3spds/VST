@@ -16,18 +16,19 @@ Allpasser::Allpasser()
         filter0[i]->rq = 0.6;
     }
     fb0 = 0.0;
-    SetFreq(1.0f);
+    SetDrive(1.0f);
 }
 
 Allpasser::~Allpasser()
 {
 }
 
-void Allpasser::SetFreq(float freqIn)
+void Allpasser::SetDrive(float drive)
 {
-    double freq = (double)(m_freq*M_PI*0.125*0.25);
+    double freq = (double)(m_drive*M_PI*0.125*0.25);
 
-    m_freq=freq+1e-4;
+    m_drive=drive+1e-4;
+    gain=1/exp(drive*0.3);
     for(int i=0; i<ORDER; i++)
     {
         filter0[i]->w0 = freq;
