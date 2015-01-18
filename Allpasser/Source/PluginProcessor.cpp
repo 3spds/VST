@@ -17,7 +17,7 @@ AllpasserAudioProcessor::AllpasserAudioProcessor()
 {
     UserParams[MasterBypass]=0.0f;
     UserParams[Drive]=1.0f;
-    mAP.SetDrive(UserParams[Drive]);
+    mAP.SetFreq(UserParams[Drive]);
     UIUpdateFlag=true;
 }
 
@@ -43,7 +43,7 @@ float AllpasserAudioProcessor::getParameter (int index)
     case MasterBypass:
         return UserParams[MasterBypass];
     case Drive:
-        UserParams[Drive]=mAP.GetDrive();
+        UserParams[Drive]=mAP.GetFreq();
         return UserParams[Drive];
     default: return 0.0f;
     }
@@ -58,7 +58,7 @@ void AllpasserAudioProcessor::setParameter (int index, float newValue)
         break;
     case Drive:
         UserParams[Drive]=newValue;
-        mAP.SetDrive(UserParams[Drive]);
+        mAP.SetFreq(UserParams[Drive]);
         break;
     default: return;
     }

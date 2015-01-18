@@ -35,13 +35,15 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel, int offset)
     float* pointer_dup = buffer.getWritePointer(channel+1);
     VectorXd avg = VectorXd::Zero(Order);
     VectorXd avg_s = VectorXd::Zero(Order);
+    MatrixXd Vt(m, Order);
     double dec = 0.3;
+    double upshift = 0.1;
 
     //now that we know the length of the buffer, we can resize A, U, S, & V
     A.resize(m, Order);
     U.resize(m, Order);
     S.resize(Order, 1);
-    V.resize(Order, length);
+    V.resize(Order, m);
 
     //fill A with input vector
 
@@ -62,17 +64,27 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel, int offset)
     S = svd.singularValues();
     avg_s *= (1-dec);
     avg_s += (S*dec);
+    //S *= (1-upshift);
+//    St = S.transpose();
+//    cout<<coupling*S<<endl;
     V = svd.matrixV();
-    V.transposeInPlace();
+    Vt = V.adjoint();
     U = svd.matrixU();
+    /*
     for(int i=0;i<Order;i++)
     {
 //       if(fabs(S(i))>m_drive){S(i) = 0;};
+    //transform singular values (compression)
        S(i) /= tanh(((m_drive-8)/512.f)+avg_s(i));
+      // S(i) *= m_drive;
     }
+    */
 
     //print for testing
-    A = U * S.asDiagonal() * V;
+    //find A again
+
+    //A = U * S.asDiagonal() * Vt;
+    A = V * S.transpose() * Vt;
 //    cout<<length/2<<endl;
 //    cout<<A.block(0, 0,(length/2)-Order,1)<<endl;
 //    cout<<A.col(0)<<endl;
@@ -85,8 +97,8 @@ void EigenTest::AudioSVD(AudioSampleBuffer& buffer, int channel, int offset)
     //copy the first (length/Order) - Order samples
     for(int i=0;i<length/Fraction;i++)
     {
-        if(A(i) > 1) A(i) = 1.0f;
-        else if(A(i) < -1) A(i) = -1.0f;
+        if(A(i) > 1.0f) A(i) = 1.0f;
+        else if(A(i) < -1.0f) A(i) = -1.0f;
     }
     for(int i=0;i<m;i++)
     {

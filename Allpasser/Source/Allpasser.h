@@ -8,7 +8,7 @@ Written by Joe Mariglio, 1/16/15
 #include "math.h"
 #include "stdio.h"
 
-#define ORDER 100
+#define ORDER 200
 
 class Allpasser
 {
@@ -18,8 +18,8 @@ Allpasser();
 
 
 //Parameters
-void SetDrive(float drive);
-float GetDrive(void){return m_drive;};
+void SetFreq(float freqIn);
+float GetFreq(void){return m_freq;};
 
 //Use
 void ClockProcess(float* LeftSample, float* RightSample);
@@ -27,7 +27,8 @@ void Average(float* input, float* level, float dec);
 void SoftClip(float* input, float* output);
 
 private:
-float m_drive, gain, rms;
+float m_freq, gain, rms;
 Eigen::MatrixXd A, U, S, V;
 Soap* filter0[ORDER];
+float fb0;
 };

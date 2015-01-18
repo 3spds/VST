@@ -15,21 +15,25 @@ Allpasser::Allpasser()
         filter0[i] = new Soap();
         filter0[i]->rq = 0.6;
     }
-    SetDrive(1.0f);
-
+    fb0 = 0.0;
+    SetFreq(1.0f);
 }
 
 Allpasser::~Allpasser()
 {
 }
 
-void Allpasser::SetDrive(float drive)
+void Allpasser::SetFreq(float freqIn)
 {
-    m_drive=drive+1e-4;
-    gain=1/exp(drive*0.3);
-    filter0[0]->w0 = (double)(m_drive*M_PI*0.125*0.25);
-    filter0[0]->calcCoefsAP();
-    cout<<filter0[0]->w0<<endl;
+    double freq = (double)(m_freq*M_PI*0.125*0.25);
+
+    m_freq=freq+1e-4;
+    for(int i=0; i<ORDER; i++)
+    {
+        filter0[i]->w0 = freq;
+        filter0[i]->calcCoefsAP();
+    }
+    //cout<<filter0[0]->w0<<endl;
 }
 
 void Allpasser::Average(float* input, float* level, float dec)
@@ -45,9 +49,15 @@ void Allpasser::SoftClip(float* input, float* output)
 void Allpasser::ClockProcess(float* LeftSample, float* RightSample)
 {
     float inputL = *LeftSample;
-    filter0[0]->apply(&inputL);
-    inputL += *LeftSample;
+    inputL *= 0.1;
+    inputL += fb0*0.9;
+    for(int i=0; i<ORDER; i++)
+    {
+        filter0[i]->apply(&inputL);
+    }
+//    inputL += *LeftSample;
     SoftClip(&inputL, LeftSample);
     SoftClip(&inputL, RightSample);
+    fb0 = *LeftSample;
 }
 
