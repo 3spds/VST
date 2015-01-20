@@ -1,5 +1,5 @@
 /*
-Allpassser.cpp - Apply dynamics processing to singular values of transformation matrix.
+Allpassser.cpp - Apply 400th order allpass filter cascade, with feedback.
 Written by Joe Mariglio, 1/16/15
 */
 
@@ -15,6 +15,7 @@ Allpasser::Allpasser()
         filter0[i] = new Soap();
         filter0[i]->rq = 0.6;
     }
+    filterFB = new Soap();
     fb0 = 0.0;
     SetDrive(1.0f);
 }
@@ -50,8 +51,12 @@ void Allpasser::SoftClip(float* input, float* output)
 void Allpasser::ClockProcess(float* LeftSample, float* RightSample)
 {
     float inputL = *LeftSample;
-    inputL *= 0.1;
-    inputL += fb0*0.9;
+    filterFB->apply(&fb0);
+    SoftClip(&fb0, &fb0);
+// still tuning the gain params here. eventually there could
+//    be presets or something... jm
+//    inputL *= 1;
+    inputL += (fb0*1.01)*((inputL + 1 )*1);
     for(int i=0; i<ORDER; i++)
     {
         filter0[i]->apply(&inputL);

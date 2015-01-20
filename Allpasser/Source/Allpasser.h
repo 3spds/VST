@@ -30,5 +30,6 @@ private:
 float m_drive, gain, rms;
 Eigen::MatrixXd A, U, S, V;
 Soap* filter0[ORDER];
+Soap* filterFB;
 float fb0;
 };
